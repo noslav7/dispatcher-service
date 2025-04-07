@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.5'
+    id 'com.github.davidmc24.gradle.plugin.avro' version '1.9.1'
 }
 
 group = 'ru.javaops.cloudjava'
@@ -19,16 +20,23 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url = "https://packages.confluent.io/maven/"
+    }
 }
 
 ext {
     springCloudVersion ='2023.0.1'
+    avroSerializerVersion='7.6.0'
+    avroVersion='1.11.3'
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation "io.confluent:kafka-avro-serializer:${avroSerializerVersion}"
+    implementation "org.apache.avro:avro:${avroVersion}"
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

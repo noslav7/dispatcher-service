@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "OrderDispatchedEvent",
+  "namespace": "ru.javaops.cloudjava",
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "long"
+    },
+    {
+      "name": "status",
+      "type": {
+        "type": "enum",
+        "name": "OrderDispatchStatus",
+        "symbols": [
+          "ACCEPTED",
+          "REJECTED"
+        ]
+      }
+    }
+  ]
+}

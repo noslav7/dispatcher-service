@@ -1,0 +1,55 @@
+{
+  "type": "record",
+  "name": "AvroOrderPlacedEvent",
+  "namespace": "ru.javaops.cloudjava",
+  "fields": [
+    {
+      "name": "order_id",
+      "type": "long"
+    },
+    {
+      "name": "created_by",
+      "type": "string"
+    },
+    {
+      "name": "city",
+      "type": "string"
+    },
+    {
+      "name": "street",
+      "type": "string"
+    },
+    {
+      "name": "house",
+      "type": "int"
+    },
+    {
+      "name": "apartment",
+      "type": "int"
+    },
+    {
+      "name": "created_at",
+      "type": {
+        "type": "long",
+        "connect.version": 1,
+        "connect.name": "io.debezium.time.MicroTimestamp"
+      }
+    },
+    {
+      "name": "__lsn",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    },
+    {
+      "name": "__source_ts_ms",
+      "type": [
+        "null",
+        "long"
+      ],
+      "default": null
+    }
+  ]
+}
