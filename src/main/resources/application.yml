@@ -13,6 +13,21 @@ spring:
     name: dispatcher-service
   lifecycle:
     timeout-per-shutdown-phase: 30s
+  config:
+    import: ${configserver.import}
+  cloud:
+    config:
+      import-check:
+        enabled: false
+      request-connect-timeout: 5000
+      request-read-timeout: 5000
+      fail-fast: false
+      retry:
+        max-attempts: 6
+        initial-interval: 1000
+        max-interval: 2000
+        multiplier: 1.1
+      label: kafka_integration
 
   kafka:
     bootstrap-servers: localhost:9097
@@ -34,6 +49,9 @@ spring:
         schema.registry.url: http://localhost:8081
         enable.idempotence: true
         acks: all
+
+configserver:
+  import: optional:configserver:${CONFIG_SERVER_URL:http://localhost:9095}
 
 kafkaprops:
   order-dispatch-topic: v1.orders_dispatch
