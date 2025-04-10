@@ -1,0 +1,29 @@
+name: Commit Checks # название нашего workflow
+on: # Запускаем workflow при push и pull-request в ветку master.
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test: # описываем процесс сборки и тестирования проекта
+    name: Building and Testing the app
+    runs-on: ubuntu-22.04 # определяем runner процесса - виртуальную машину ubuntu-22.04
+    steps: #определяем шаги, которые необходимо выполнить в этой job
+      - name: Checkout # для начала копируем репозиторий на виртуальную машину с помощью
+        # доступного на Github Marketplace action https://github.com/marketplace/actions/checkout
+        uses: actions/checkout@v4
+      - name: Setup JDK # устанавливаем рабочее окружение - JVM temurin с Java 17 и Gradle
+        # Для этого также используем action с Github Marketplace https://github.com/marketplace/actions/setup-java-jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+      - name: build, tests # Шаг, на котором будет выполняться сборка и тестирование проекта.
+        # Описываем его с помощью команд, которые выполнятся на виртуальной машине ubuntu-22.04
+        run: |
+          chmod +x gradlew
+          ./gradlew build
